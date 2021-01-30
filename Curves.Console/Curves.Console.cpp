@@ -12,7 +12,7 @@
 
 void printCoordiantesAt(const std::vector<std::unique_ptr<curves::figures::Curve>>& curves, double t)
 {
-	for (auto it{ curves.cbegin() }; it != curves.cend(); ++it)
+	for (auto it = curves.cbegin(); it != curves.cend(); ++it)
 	{
 		std::cout << "Point coordinates: " << it->get()->getPoint(t) << " and derivative: " 
 				  << it->get()->getDerivative(t) << '\n';
@@ -22,19 +22,13 @@ void printCoordiantesAt(const std::vector<std::unique_ptr<curves::figures::Curve
 std::vector<curves::figures::Circle*> getCircles(const std::vector<std::unique_ptr<curves::figures::Curve>>& curves)
 {
 	std::vector<curves::figures::Circle*> circles;
-	for (auto it{ curves.begin() }; it != curves.end(); ++it)
+	for (auto it = curves.begin(); it != curves.end(); ++it)
 	{
-		try
+		auto circle{ dynamic_cast<curves::figures::Circle*>(it->get()) };
+
+		if (circle != nullptr)
 		{
-			auto circle{ dynamic_cast<curves::figures::Circle*>(it->get()) };
-			
-			if (circle != nullptr)
-			{
-				circles.push_back(circle);
-			}
-		}
-		catch (std::bad_cast&)
-		{
+			circles.push_back(circle);
 		}
 	}
 
@@ -43,7 +37,7 @@ std::vector<curves::figures::Circle*> getCircles(const std::vector<std::unique_p
 
 void displayCircles(const std::vector<curves::figures::Circle*>& circles)
 {
-	for (auto it{ circles.begin() }; it != circles.end(); ++it)
+	for (auto it = circles.begin(); it != circles.end(); ++it)
 	{
 		std::cout << (*it)->getRadius() << ' ';
 	}
@@ -52,13 +46,13 @@ void displayCircles(const std::vector<curves::figures::Circle*>& circles)
 int main()
 {
 	std::vector<std::unique_ptr<curves::figures::Curve>> curves;
+	curves.reserve(6);
 	curves.push_back(std::make_unique<curves::figures::Circle>(5));
 	curves.push_back(std::make_unique<curves::figures::Ellipse>(3, 7));
 	curves.push_back(std::make_unique<curves::figures::Helix>(10, 1));
 	curves.push_back(std::make_unique<curves::figures::Ellipse>(6, 2));
 	curves.push_back(std::make_unique<curves::figures::Circle>(8));
 	curves.push_back(std::make_unique<curves::figures::Circle>(3));
-
 
 	printCoordiantesAt(curves, M_PI / 4);
 
@@ -82,11 +76,11 @@ int main()
 
 	std::cout << '\n';
 
-	double circlesRadSum{ std::accumulate(circles.begin(), circles.end(), 0.0, [](double sum, const curves::figures::Circle* circle)
+	double circlesRadSum = std::accumulate(circles.begin(), circles.end(), 0.0, [](double sum, const curves::figures::Circle* circle)
 		{
 			sum += circle->getRadius();
 			return sum;
-		}) };
+		});
 
 	std::cout << "Circles radius sum: " << std::to_string(circlesRadSum);
 }

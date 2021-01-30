@@ -152,7 +152,7 @@
     <ClInclude Include="include\figures\Circle.h" />
     <ClInclude Include="include\figures\Curve.h" />
     <ClInclude Include="include\figures\Ellipse.h" />
-    <ClInclude Include="include\figures\Export.h" />
+    <ClInclude Include="include\Export.h" />
     <ClInclude Include="include\figures\Figures.h" />
     <ClInclude Include="include\figures\Helix.h" />
     <ClInclude Include="include\Point.h" />

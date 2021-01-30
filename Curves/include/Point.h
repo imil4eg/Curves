@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "figures/Export.h"
+#include "Export.h"
 
 namespace curves
 {

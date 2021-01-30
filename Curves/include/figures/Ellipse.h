@@ -11,16 +11,16 @@ namespace curves
 	{ 
 		class CURVESLIBRARY_API Ellipse : public Curve
 		{
-		private:
-			struct CURVESLIBRARY_API Impl;
-			std::unique_ptr<Impl> pImpl;
-
 		public:
 			Ellipse(double xRadius, double yRadius);
 			~Ellipse();
 
 			Point getPoint(double t) const override;
 			double getDerivative(double t) const override;
+		
+		private:
+			struct CURVESLIBRARY_API Impl;
+			std::unique_ptr<Impl> pImpl;
 		};
 	}
 }
