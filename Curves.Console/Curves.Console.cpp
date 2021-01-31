@@ -43,6 +43,19 @@ void displayCircles(const std::vector<curves::figures::Circle*>& circles)
 	}
 }
 
+double parallelAccumulate(const std::vector<curves::figures::Circle*>& circles)
+{
+	double sum{};
+
+#pragma omp parallel for reduction(+:sum)
+	for (int i = 0; i < circles.size(); ++i)
+	{
+		sum += circles[i]->getRadius();
+	}
+
+	return sum;
+}
+
 int main()
 {
 	std::vector<std::unique_ptr<curves::figures::Curve>> curves;
@@ -76,11 +89,8 @@ int main()
 
 	std::cout << '\n';
 
-	double circlesRadSum = std::accumulate(circles.begin(), circles.end(), 0.0, [](double sum, const curves::figures::Circle* circle)
-		{
-			sum += circle->getRadius();
-			return sum;
-		});
+	double circlesRadSum = parallelAccumulate(circles);
 
-	std::cout << "Circles radius sum: " << std::to_string(circlesRadSum);
+	std::cout << "Circles radius sum: " << circlesRadSum;
 }
+	
