@@ -3,25 +3,24 @@
 #include <memory>
 
 #include "Curve.h"
+#include "Ellipse.h"
 #include "Export.h"
 
 namespace curves
 {
 	namespace figures
 	{
-		class CURVESLIBRARY_API Circle : public Curve
+		class CURVESLIBRARY_API Circle : public Ellipse
 		{
 		public:
-			Circle(double radius);
-			~Circle();
+			Circle(double x, double y, double z, double radius) :
+				Ellipse(x, y, z, radius, radius)
+			{
+			}
 
-			Point getPoint(double t) const override;
-			double getDerivative(double t) const override;
-			double getRadius() const;
+			~Circle() = default;
 
-		private:
-			struct Impl;
-			std::unique_ptr<Impl> pImpl;
+			double getRadius() const { return Ellipse::getXRadius(); }
 		};
 	}
 }

@@ -143,7 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\figures\Circle.cpp" />
+    <ClCompile Include="src\figures\Curve.cpp" />
     <ClCompile Include="src\figures\Ellipse.cpp" />
     <ClCompile Include="src\figures\Helix.cpp" />
     <ClCompile Include="src\Point.cpp" />

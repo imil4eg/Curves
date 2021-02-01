@@ -20,7 +20,8 @@ namespace curves
 			~Impl() = default;
 		};
 
-		Ellipse::Ellipse(double xRadius, double yRadius) :
+		Ellipse::Ellipse(double x, double y, double z, double xRadius, double yRadius) :
+			Curve(x, y, z),
 			pImpl(std::make_unique<Impl>(xRadius, yRadius))
 		{
 		}
@@ -29,15 +30,24 @@ namespace curves
 
 		Point Ellipse::getPoint(double t) const
 		{
-			double x{ pImpl->m_xRadius * cos(t) };
-			double y{ pImpl->m_yRadius * sin(t) };
+			const Point& location{ Curve::getLocation() };
 
-			return Point{ x, y, 0.0 };
+			double x{ location.x + (pImpl->m_xRadius * cos(t)) };
+			double y{ location.y + (pImpl->m_yRadius * sin(t)) };
+
+			return Point{ x, y, location.z };
 		}
 
-		double Ellipse::getDerivative(double t) const
+		Point Ellipse::getDerivative(double t) const
 		{
-			return (sin(t) + (pImpl->m_yRadius * cos(t))) / (cos(t) - (pImpl->m_xRadius * sin(t)));
+			return Point{
+				cos(t) - (pImpl->m_xRadius * sin(t)),
+				sin(t) + (pImpl->m_yRadius * cos(t)),
+				0.0
+			};
 		}
+
+		double Ellipse::getXRadius() const { return pImpl->m_xRadius; }
+		double Ellipse::getYRadius() const { return pImpl->m_yRadius; }
 	}
 }

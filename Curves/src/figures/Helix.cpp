@@ -20,7 +20,8 @@ namespace curves
 			~Impl() = default;
 		};
 
-		Helix::Helix(double radius, double step) : 
+		Helix::Helix(double x, double y, double z, double radius, double step) : 
+			Curve(x, y, z),
 			pImpl(std::make_unique<Impl>(radius, step))
 		{
 		}
@@ -29,16 +30,21 @@ namespace curves
 
 		Point Helix::getPoint(double t) const
 		{
-			double x{ pImpl->m_radius * cos(t) };
-			double y{ pImpl->m_radius * sin(t) };
-			double z{ pImpl->m_step * t };
+			const Point& location{ Curve::getLocation() };
+			double x{ location.x + (pImpl->m_radius * cos(t)) };
+			double y{ location.y + (pImpl->m_radius * sin(t)) };
+			double z{ location.z + (pImpl->m_step * t) };
 
 			return Point{ x,y,z };
 		}
 
-		double Helix::getDerivative(double t) const
+		Point Helix::getDerivative(double t) const
 		{
-			return (sin(t) + (pImpl->m_radius * cos(t))) / (cos(t) - (pImpl->m_radius * sin(t)));
+			return Point{
+				cos(t) - (pImpl->m_radius * sin(t)),
+				sin(t) + (pImpl->m_radius * cos(t)),
+				pImpl->m_radius * pImpl->m_step
+			};
 		}
 	}
 }

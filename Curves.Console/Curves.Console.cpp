@@ -60,12 +60,12 @@ int main()
 {
 	std::vector<std::unique_ptr<curves::figures::Curve>> curves;
 	curves.reserve(6);
-	curves.push_back(std::make_unique<curves::figures::Circle>(5));
-	curves.push_back(std::make_unique<curves::figures::Ellipse>(3, 7));
-	curves.push_back(std::make_unique<curves::figures::Helix>(10, 1));
-	curves.push_back(std::make_unique<curves::figures::Ellipse>(6, 2));
-	curves.push_back(std::make_unique<curves::figures::Circle>(8));
-	curves.push_back(std::make_unique<curves::figures::Circle>(3));
+	curves.push_back(std::make_unique<curves::figures::Circle>(1, 6, 3, 5));
+	curves.push_back(std::make_unique<curves::figures::Ellipse>(8, 2, 9, 3, 7));
+	curves.push_back(std::make_unique<curves::figures::Helix>(4, 2, 8, 10, 1));
+	curves.push_back(std::make_unique<curves::figures::Ellipse>(8, 7, 2, 6, 2));
+	curves.push_back(std::make_unique<curves::figures::Circle>(10, 2, 3, 8));
+	curves.push_back(std::make_unique<curves::figures::Circle>(5, 6, 8, 3));
 
 	printCoordiantesAt(curves, M_PI / 4);
 

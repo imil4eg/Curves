@@ -12,11 +12,11 @@ namespace curves
 		class CURVESLIBRARY_API Helix : public Curve
 		{
 		public:
-			Helix(double radius, double step);
+			Helix(double x, double y, double z, double radius, double step);
 			~Helix();
 
 			Point getPoint(double t) const override;
-			double getDerivative(double t) const override;
+			Point getDerivative(double t) const override;
 
 		private:
 			struct Impl;
