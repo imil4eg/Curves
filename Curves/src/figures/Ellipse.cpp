@@ -41,8 +41,8 @@ namespace curves
 		Point Ellipse::getDerivative(double t) const
 		{
 			return Point{
-				cos(t) - (pImpl->m_xRadius * sin(t)),
-				sin(t) + (pImpl->m_yRadius * cos(t)),
+				pImpl->m_xRadius * -sin(t),
+				pImpl->m_yRadius * cos(t),
 				0.0
 			};
 		}

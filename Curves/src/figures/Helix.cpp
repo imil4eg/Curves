@@ -41,8 +41,8 @@ namespace curves
 		Point Helix::getDerivative(double t) const
 		{
 			return Point{
-				cos(t) - (pImpl->m_radius * sin(t)),
-				sin(t) + (pImpl->m_radius * cos(t)),
+				pImpl->m_radius * -sin(t),
+				pImpl->m_radius * cos(t),
 				pImpl->m_radius * pImpl->m_step
 			};
 		}
