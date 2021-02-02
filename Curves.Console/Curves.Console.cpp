@@ -68,7 +68,7 @@ int main()
 	curves.push_back(std::make_unique<curves::figures::Circle>(5, 6, 8, 3));
 
 	printCoordiantesAt(curves, M_PI / 4);
-
+	
 	std::vector<curves::figures::Circle*> circles{ getCircles(curves) };
 
 	std::cout << "Circles radiuses before sort: ";

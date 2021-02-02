@@ -1,3 +1,5 @@
+#define _USE_MATH_DEFINES
+
 #include <math.h>
 
 #include "figures/Helix.h"
@@ -33,7 +35,7 @@ namespace curves
 			const Point& location{ Curve::getLocation() };
 			double x{ location.x + (pImpl->m_radius * cos(t)) };
 			double y{ location.y + (pImpl->m_radius * sin(t)) };
-			double z{ location.z + (pImpl->m_step * t) };
+			double z{ location.z + ((pImpl->m_step * t) / (M_PI * 2)) };
 
 			return Point{ x,y,z };
 		}
@@ -43,7 +45,7 @@ namespace curves
 			return Point{
 				pImpl->m_radius * -sin(t),
 				pImpl->m_radius * cos(t),
-				pImpl->m_radius * pImpl->m_step
+				pImpl->m_step / (2 * M_PI)
 			};
 		}
 	}
